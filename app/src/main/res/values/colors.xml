@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="alabaster">#E6EBE0</color>
+    <color name="wenge">#5D576B</color>
+    <color name="ashgray">#9BC1BC</color>
+    <color name="lemon">#F4F1BB</color>
+    <color name="bittersweat">#ED6A5A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+</resources>

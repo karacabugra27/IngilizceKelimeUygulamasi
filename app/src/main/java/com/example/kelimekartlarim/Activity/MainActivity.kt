@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun btnQuiz(view: View) {
-        val intent = Intent(this, ActivityQuiz::class.java)
+        val intent = Intent(this, ActivityQuizSecim::class.java)
         startActivity(intent)
     }
 

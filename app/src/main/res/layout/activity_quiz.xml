@@ -1,156 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ashgray"
     tools:context=".Activity.ActivityQuiz">
 
-    <TextView
-        android:id="@+id/quizBaslik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="KELİME QUIZ"
-        android:textSize="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
 
-    <TextView
-        android:id="@+id/dogruBaslik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="80dp"
-        android:text="Doğru"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quizBaslik" />
-
-    <TextView
-        android:id="@+id/yanlisBaslik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
-        android:text="Yanlış"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dogruBaslik" />
-
-    <TextView
-        android:id="@+id/dogruSayisi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/dogruBaslik"
-        app:layout_constraintTop_toBottomOf="@+id/quizBaslik" />
-
-    <TextView
-        android:id="@+id/yanlisSayisi"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/yanlisBaslik"
-        app:layout_constraintTop_toBottomOf="@+id/dogruSayisi" />
-
-    <TextView
-        android:id="@+id/sureBaslik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
-        android:text="Kalan Süre"
-        android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quizBaslik" />
-
-    <TextView
-        android:id="@+id/kalanSure"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/sureBaslik"
-        app:layout_constraintTop_toBottomOf="@+id/quizBaslik" />
-
-    <TextView
-        android:id="@+id/soruBaslik"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        android:text=""
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sureBaslik" />
-
-    <Button
-        android:id="@+id/optionA"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/soruBaslik" />
-
-    <Button
-        android:id="@+id/optionB"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/soruBaslik" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_centerInParent="true"
+        android:background="@color/lemon"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.50121653" />
+        android:weightSum="3">
 
-    <Button
-        android:id="@+id/optionC"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optionA" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-    <Button
-        android:id="@+id/optionD"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/optionB" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:backgroundTint="@color/white"
+                android:elevation="10dp"
+                app:strokeColor="@color/bittersweat"
+                app:strokeWidth="3dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ProgressBar
+                        android:id="@+id/circularProgressBar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5dp"
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/circular_progress_bar" />
+
+                    <TextView
+                        android:id="@+id/timeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/circularProgressBar"
+                        android:layout_alignTop="@id/circularProgressBar"
+                        android:layout_alignEnd="@id/circularProgressBar"
+                        android:layout_alignBottom="@id/circularProgressBar"
+                        android:gravity="center"
+                        android:text="60"
+                        android:textSize="36sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/circularProgressBar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginVertical="5dp"
+                        android:text="Soru 20/20"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:backgroundTint="@color/white"
+                android:elevation="10dp"
+                app:strokeColor="@color/bittersweat"
+                app:strokeWidth="3dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Drive"
+                    android:textAlignment="center"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:backgroundTint="@color/white"
+                app:cardElevation="10dp"
+                app:strokeColor="@color/bittersweat"
+                app:strokeWidth="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/firstOptionButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:layout_marginVertical="4dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Sürmek" />
+
+                        <Button
+                            android:id="@+id/secondOptionButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:layout_marginVertical="4dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="İnmek" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/thirdOptionButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:layout_marginVertical="4dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:text="Atlamak" />
+
+                        <Button
+                            android:id="@+id/fourthOptionButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:layout_marginVertical="4dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Binmek" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

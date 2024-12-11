@@ -8,4 +8,8 @@ class SetFiiller(private val dbManager: DatabaseManager) : KelimeSeti {
         return dbManager.kelimeSetiGetir("TableFiiller")
     }
 
+    override fun rastgeleKelimeAl(): Kelime {
+        return dbManager.rastgeleKelimeAl("TableFiiller")
+    }
+
 }

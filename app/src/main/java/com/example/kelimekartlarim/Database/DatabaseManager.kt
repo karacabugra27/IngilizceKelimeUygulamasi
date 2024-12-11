@@ -35,13 +35,30 @@ class DatabaseManager(private val dbOpenHelper: DatabaseOpenHelper) {
         var kelime: Kelime? = null
         if (cursor.moveToFirst() != null) {
             kelime = Kelime()
-            kelime!!.Id = cursor.getInt(cursor.getColumnIndexOrThrow("Id"))
-            kelime!!.AdTurkce = cursor.getString(cursor.getColumnIndexOrThrow("AdTurkce"))
-            kelime!!.AdEng = cursor.getString(cursor.getColumnIndexOrThrow("AdEng"))
+            kelime.Id = cursor.getInt(cursor.getColumnIndexOrThrow("Id"))
+            kelime.AdTurkce = cursor.getString(cursor.getColumnIndexOrThrow("AdTurkce"))
+            kelime.AdEng = cursor.getString(cursor.getColumnIndexOrThrow("AdEng"))
         }
         cursor.close()
         db.close()
         return kelime
+    }
+
+    fun rastgeleKelimeAl(tableName: String): Kelime {
+        val db = dbOpenHelper.readableDatabase
+        val sql = "select * from $tableName order by random() limit 1"
+        val cursor = db.rawQuery(sql, null)
+
+        var kelime: Kelime? = null
+        if (cursor.moveToFirst()) {
+            kelime = Kelime()
+            kelime.Id = cursor.getInt(cursor.getColumnIndexOrThrow("Id"))
+            kelime.AdTurkce = cursor.getString(cursor.getColumnIndexOrThrow("AdTurkce"))
+            kelime.AdEng = cursor.getString(cursor.getColumnIndexOrThrow("AdEng"))
+        }
+        cursor.close()
+        db.close()
+        return kelime ?: throw IllegalArgumentException("Kelime bulunamadı.")
 
     }
 }

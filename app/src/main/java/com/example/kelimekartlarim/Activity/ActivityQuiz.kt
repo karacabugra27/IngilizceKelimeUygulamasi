@@ -7,6 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kelimekartlarim.CustomCountdownTimer
+import com.example.kelimekartlarim.Database.DatabaseManager
+import com.example.kelimekartlarim.Database.DatabaseOpenHelper
+import com.example.kelimekartlarim.Database.Kelime
+import com.example.kelimekartlarim.FactoryKelimeSetleri.KelimeSeti
+import com.example.kelimekartlarim.FactoryKelimeSetleri.SetFactory
 import com.example.kelimekartlarim.R
 import com.example.kelimekartlarim.databinding.ActivityQuizBinding
 import com.example.kelimekartlarim.setupDialog
@@ -14,19 +19,34 @@ import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 class ActivityQuiz : AppCompatActivity() {
+
     lateinit var binding: ActivityQuizBinding
 
+    //database işlemleri
+    private lateinit var dbManager: DatabaseManager
+    private lateinit var kelimeSeti: KelimeSeti
+    private lateinit var dogruKelime: Kelime
+
+    private val tumKelimeler = mutableListOf<Kelime>()
+    private val secenekler = mutableListOf<Kelime>()
+    private val sorulanSorular = mutableListOf<Kelime>()
+
+    //doğru yanlış sayı kontolü
+    private var dogruSayisi = 0
+    private var yanlisSayisi = 0
+    private var soruNo = 0
+
+    //countdowntimer
     private val countdownTime = 20
     private val clockTime = (countdownTime * 1000).toLong()
     private val progressTime = (clockTime / 1000).toFloat()
     private lateinit var customCountdownTimer: CustomCountdownTimer
 
     private val scoreDialog: Dialog by lazy {
-        Dialog(this,R.style.DialogCustomTheme).apply {
+        Dialog(this, R.style.DialogCustomTheme).apply {
             setupDialog(R.layout.score_dialog)
         }
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +54,10 @@ class ActivityQuiz : AppCompatActivity() {
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        quizBaslatma()
 
+
+        //countdowntimer kod blok başlangıç
 
         var secondsLeft = 0
         customCountdownTimer = object : CustomCountdownTimer(clockTime, 1000) {}
@@ -56,28 +79,111 @@ class ActivityQuiz : AppCompatActivity() {
 
         customCountdownTimer.startTimer()
 
+        //countdowntimer kod blok bitiş
 
-        val anaMenuBtn : Button = scoreDialog.findViewById(R.id.anaMenuButton)
-        val kategoriBtn : Button = scoreDialog.findViewById(R.id.kategoriButton)
+
+        // score dialog kod blok başlangıç
+
+        val anaMenuBtn: Button = scoreDialog.findViewById(R.id.anaMenuButton)
+        val kategoriBtn: Button = scoreDialog.findViewById(R.id.kategoriButton)
 
         anaMenuBtn.setOnClickListener {
-            val intent = Intent(this@ActivityQuiz,MainActivity::class.java)
+            val intent = Intent(this@ActivityQuiz, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
         kategoriBtn.setOnClickListener {
-            val intent = Intent(this@ActivityQuiz,ActivityQuizSecim::class.java)
+            val intent = Intent(this@ActivityQuiz, ActivityQuizSecim::class.java)
             startActivity(intent)
             scoreDialog.dismiss()
         }
+
+        //score dialog kod blok bitiş
+    }
+
+    private fun quizBaslatma() {
+        kelimeSetiniYukle()
+        siradakiSoruyaGecis()
+        butonSecenekSecmesi()
+    }
+
+    private fun kelimeSetiniYukle() { //aktardığım tabloyu alma ve ilgili kelime setini getirme işlemi
+        val tableName = intent.getStringExtra("tableName")
+        dbManager = DatabaseManager(DatabaseOpenHelper.getInstance(this))
+        kelimeSeti = SetFactory(dbManager).createKelimeSeti(tableName!!)
+        tumKelimeler.addAll(kelimeSeti.kelimeler())
+    }
+
+    private fun siradakiSoruyaGecis() {
+        if (sorulanSorular.size < 10) {
+            soruNo++
+            dogruKelime = rastgeleSoruAl()
+            seceneklerOlustur()
+            updateUI()
+        } else {
+            customCountdownTimer.pauseTimer()
+            showScoreDialog()
+        }
+    }
+
+    private fun rastgeleSoruAl(): Kelime {
+        var rastgeleKelime: Kelime
+        do {
+            rastgeleKelime = tumKelimeler.random()
+        } while (sorulanSorular.contains(rastgeleKelime) && sorulanSorular.size < 10)
+        sorulanSorular.add(rastgeleKelime)
+        return rastgeleKelime
+    }
+
+    private fun seceneklerOlustur() {
+        secenekler.clear()
+        secenekler.add(dogruKelime)
+        val kullanılabilecekKelimeler = tumKelimeler.filter { it != dogruKelime }
+        val rastgeleKelimeler = kullanılabilecekKelimeler.shuffled().take(3)
+        secenekler.addAll(rastgeleKelimeler)
+        secenekler.shuffle()
+
+    }
+
+    private fun updateUI() {
+        binding.soruSayisiText.text = "Soru $soruNo/10"
+        binding.soruText.text = dogruKelime.AdEng
+        binding.firstOptionButton.text = secenekler[0].AdTurkce
+        binding.secondOptionButton.text = secenekler[1].AdTurkce
+        binding.thirdOptionButton.text = secenekler[2].AdTurkce
+        binding.fourthOptionButton.text = secenekler[3].AdTurkce
+    }
+
+    private fun butonSecenekSecmesi() {
+        binding.firstOptionButton.setOnClickListener {
+            dogruYanlisKontrolu(binding.firstOptionButton.text.toString())
+        }
+        binding.secondOptionButton.setOnClickListener {
+            dogruYanlisKontrolu(binding.secondOptionButton.text.toString())
+        }
+        binding.thirdOptionButton.setOnClickListener {
+            dogruYanlisKontrolu(binding.thirdOptionButton.text.toString())
+        }
+        binding.fourthOptionButton.setOnClickListener {
+            dogruYanlisKontrolu(binding.fourthOptionButton.text.toString())
+        }
+    }
+
+    private fun dogruYanlisKontrolu(secilen: String) {
+        if (secilen == dogruKelime.AdTurkce) {
+            dogruSayisi++
+        } else {
+            yanlisSayisi++
+        }
+        siradakiSoruyaGecis()
     }
 
     private fun showScoreDialog() {
-        val dogruSayisi = scoreDialog.findViewById<TextView>(R.id.skorDogru)
-        val yanlisSayisi = scoreDialog.findViewById<TextView>(R.id.skorYanlis)
+        val dogru = scoreDialog.findViewById<TextView>(R.id.skorDogru)
+        val yanlis = scoreDialog.findViewById<TextView>(R.id.skorYanlis)
 
-        dogruSayisi.text = ""
-        yanlisSayisi    .text = ""
+        dogru.text = dogruSayisi.toString()
+        yanlis.text = yanlisSayisi.toString()
 
         scoreDialog.show()
     }

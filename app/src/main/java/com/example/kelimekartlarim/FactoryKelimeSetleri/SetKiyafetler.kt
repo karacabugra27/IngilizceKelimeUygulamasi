@@ -8,4 +8,9 @@ class SetKiyafetler(private val dbManager : DatabaseManager) : KelimeSeti {
         return dbManager.kelimeSetiGetir("TableKiyafetler")
     }
 
+    override fun rastgeleKelimeAl(): Kelime {
+        return dbManager.rastgeleKelimeAl("TableKiyafetler")
+    }
+
+
 }

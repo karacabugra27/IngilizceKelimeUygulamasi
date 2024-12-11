@@ -5,10 +5,10 @@ import com.example.kelimekartlarim.Database.DatabaseManager
 class SetFactory(private val dbManager: DatabaseManager) {
     fun createKelimeSeti(tableName : String) : KelimeSeti {
         return when(tableName) {
-            "TableHayvanlar" -> SetHayvanlar(dbManager)
-            "TableFiiller" -> SetFiiller(dbManager)
-            "TableIsimler" -> SetIsimler(dbManager)
-            "TableKiyafetler" -> SetKiyafetler(dbManager)
+            "Hayvanlar" -> SetHayvanlar(dbManager)
+            "Fiiller" -> SetFiiller(dbManager)
+            "İsimler" -> SetIsimler(dbManager)
+            "Kıyafetler" -> SetKiyafetler(dbManager)
             else -> throw IllegalArgumentException("tablo bilinmiyor $tableName ")
         }
     }

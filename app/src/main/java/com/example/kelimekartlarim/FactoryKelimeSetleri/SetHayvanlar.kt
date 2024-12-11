@@ -7,4 +7,8 @@ class SetHayvanlar(private val dbManager: DatabaseManager) : KelimeSeti {
     override fun kelimeler(): ArrayList<Kelime> {
         return dbManager.kelimeSetiGetir("TableHayvanlar")
     }
+
+    override fun rastgeleKelimeAl(): Kelime {
+        return dbManager.rastgeleKelimeAl("TableHayvanlar")
+    }
 }

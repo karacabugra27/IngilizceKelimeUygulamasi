@@ -7,4 +7,9 @@ class SetIsimler(private val dbManager : DatabaseManager) : KelimeSeti {
     override fun kelimeler(): ArrayList<Kelime> {
         return dbManager.kelimeSetiGetir("TableIsimler")
     }
+
+    override fun rastgeleKelimeAl(): Kelime {
+        return dbManager.rastgeleKelimeAl("TableIsimler")
+    }
+
 }

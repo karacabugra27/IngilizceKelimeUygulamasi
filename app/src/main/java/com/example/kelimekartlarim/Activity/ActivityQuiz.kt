@@ -1,13 +1,15 @@
 package com.example.kelimekartlarim.Activity
 
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.kelimekartlarim.CustomCountdownTimer
 import com.example.kelimekartlarim.R
 import com.example.kelimekartlarim.databinding.ActivityQuizBinding
+import com.example.kelimekartlarim.setupDialog
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -19,10 +21,19 @@ class ActivityQuiz : AppCompatActivity() {
     private val progressTime = (clockTime / 1000).toFloat()
     private lateinit var customCountdownTimer: CustomCountdownTimer
 
+    private val scoreDialog: Dialog by lazy {
+        Dialog(this,R.style.DialogCustomTheme).apply {
+            setupDialog(R.layout.score_dialog)
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         var secondsLeft = 0
@@ -38,11 +49,37 @@ class ActivityQuiz : AppCompatActivity() {
             }
         }
         customCountdownTimer.onFinish = {
+            showScoreDialog()
         }
         binding.circularProgressBar.max = progressTime.toInt()
         binding.circularProgressBar.progress = progressTime.toInt()
 
         customCountdownTimer.startTimer()
+
+
+        val anaMenuBtn : Button = scoreDialog.findViewById(R.id.anaMenuButton)
+        val kategoriBtn : Button = scoreDialog.findViewById(R.id.kategoriButton)
+
+        anaMenuBtn.setOnClickListener {
+            val intent = Intent(this@ActivityQuiz,MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        kategoriBtn.setOnClickListener {
+            val intent = Intent(this@ActivityQuiz,ActivityQuizSecim::class.java)
+            startActivity(intent)
+            scoreDialog.dismiss()
+        }
+    }
+
+    private fun showScoreDialog() {
+        val dogruSayisi = scoreDialog.findViewById<TextView>(R.id.skorDogru)
+        val yanlisSayisi = scoreDialog.findViewById<TextView>(R.id.skorYanlis)
+
+        dogruSayisi.text = ""
+        yanlisSayisi    .text = ""
+
+        scoreDialog.show()
     }
 
     private fun timerFormat(secondsLeft: Int) {
@@ -54,4 +91,6 @@ class ActivityQuiz : AppCompatActivity() {
 
         binding.timeText.text = timeFormat1
     }
+
+
 }

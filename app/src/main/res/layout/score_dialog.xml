@@ -30,7 +30,6 @@
 
 
                 <TextView
-                    android:id="@+id/skorDogru"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Doğru"
@@ -39,6 +38,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/skorDogru"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"

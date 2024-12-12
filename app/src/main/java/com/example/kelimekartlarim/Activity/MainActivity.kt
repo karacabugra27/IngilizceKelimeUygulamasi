@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.kelimekartlarim.Database.DatabaseKopyalama
 import com.example.kelimekartlarim.Database.DatabaseOpenHelper
 import com.example.kelimekartlarim.R
+import com.example.kelimekartlarim.StrategyPuanlama.PuanManager
 import com.example.kelimekartlarim.databinding.ActivityMainBinding
 import com.example.kelimekartlarim.setupDialog
 import kotlin.system.exitProcess
@@ -20,14 +21,14 @@ class MainActivity : AppCompatActivity() {
     val databaseName = "kelimekartlarim.db"
     lateinit var dbHelper: DatabaseOpenHelper
 
-    private val onBackPressedCallback : OnBackPressedCallback = object : OnBackPressedCallback(true){
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             onBackPressedMethod()
         }
     }
 
-    private val exitDialog : Dialog by lazy {
-        Dialog(this,R.style.DialogCustomTheme).apply {
+    private val exitDialog: Dialog by lazy {
+        Dialog(this, R.style.DialogCustomTheme).apply {
             setupDialog(R.layout.exit_dialog)
         }
     }
@@ -36,16 +37,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        onBackPressedDispatcher.addCallback(this,onBackPressedCallback)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
+        PuanManager.init(this)
 
         dbHelper = DatabaseOpenHelper.getInstance(this)
         kopyala()
 
-        val yesBtn : Button = exitDialog.findViewById(R.id.evetButton)
-        val noBtn : Button = exitDialog.findViewById(R.id.hayirButton)
+        val yesBtn: Button = exitDialog.findViewById(R.id.evetButton)
+        val noBtn: Button = exitDialog.findViewById(R.id.hayirButton)
 
-        yesBtn.setOnClickListener{
+        yesBtn.setOnClickListener {
             moveTaskToBack(true)
             android.os.Process.killProcess(android.os.Process.myPid())
             exitProcess(1)
@@ -55,9 +57,11 @@ class MainActivity : AppCompatActivity() {
             exitDialog.dismiss()
         }
 
+        binding.skor.text = PuanManager.puan.toString()
+
     }
 
-    fun kopyala() {
+    private fun kopyala() {
         val dbKopya = DatabaseKopyalama(this)
         dbKopya.kopyala(databaseName, R.raw.kelimekartlarim)
     }
@@ -72,12 +76,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
-
-
-
-
-    private fun onBackPressedMethod(){
+    private fun onBackPressedMethod() {
         exitDialog.show()
     }
 }

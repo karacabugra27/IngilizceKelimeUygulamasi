@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kelimekartlarim.CustomCountdownTimer
 import com.example.kelimekartlarim.Database.DatabaseManager
 import com.example.kelimekartlarim.Database.DatabaseOpenHelper
 import com.example.kelimekartlarim.Database.Kelime
 import com.example.kelimekartlarim.FactoryKelimeSetleri.KelimeSeti
 import com.example.kelimekartlarim.FactoryKelimeSetleri.SetFactory
 import com.example.kelimekartlarim.R
+import com.example.kelimekartlarim.StrategyPuanlama.PuanManager
+import com.example.kelimekartlarim.StrategyPuanlama.StrategyManager
+import com.example.kelimekartlarim.StrategyPuanlama.StrategySeviye1
+import com.example.kelimekartlarim.StrategyPuanlama.StrategySeviye2
+import com.example.kelimekartlarim.StrategyPuanlama.StrategySeviye3
 import com.example.kelimekartlarim.databinding.ActivityQuizBinding
 import com.example.kelimekartlarim.setupDialog
 import java.text.DecimalFormat
@@ -107,6 +111,20 @@ class ActivityQuiz : AppCompatActivity() {
         butonSecenekSecmesi()
     }
 
+    private fun zorlukSeviyeVePuanEkleme() {
+        val tableName = intent.getStringExtra("tableName")
+        val zorlukSeviyesi = when (tableName) {
+            "Hayvanlar"  -> StrategySeviye1()
+            "Fiiller"    -> StrategySeviye2()
+            "Kıyafetler" -> StrategySeviye2()
+            "İsimler"    -> StrategySeviye3()
+            else         -> StrategySeviye1()
+        }
+        val strategyManager = StrategyManager(zorlukSeviyesi)
+        val puan = strategyManager.puanHesaplama(dogruSayisi)
+        PuanManager.puanEkleme(puan)
+    }
+
     private fun kelimeSetiniYukle() { //aktardığım tabloyu alma ve ilgili kelime setini getirme işlemi
         val tableName = intent.getStringExtra("tableName")
         dbManager = DatabaseManager(DatabaseOpenHelper.getInstance(this))
@@ -122,6 +140,7 @@ class ActivityQuiz : AppCompatActivity() {
             updateUI()
         } else {
             customCountdownTimer.pauseTimer()
+            zorlukSeviyeVePuanEkleme()
             showScoreDialog()
         }
     }
@@ -197,6 +216,5 @@ class ActivityQuiz : AppCompatActivity() {
 
         binding.timeText.text = timeFormat1
     }
-
 
 }

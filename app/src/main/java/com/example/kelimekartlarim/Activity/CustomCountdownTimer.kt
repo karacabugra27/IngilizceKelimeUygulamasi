@@ -1,4 +1,4 @@
-package com.example.kelimekartlarim
+package com.example.kelimekartlarim.Activity
 
 import android.os.CountDownTimer
 

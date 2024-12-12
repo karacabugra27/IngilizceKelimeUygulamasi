@@ -37,4 +37,11 @@ class ActivityQuizSecim : AppCompatActivity() {
         intent.putExtra("tableName", selectedTable) // veri taşıma işlemi varsa buraya
         startActivity(intent)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }

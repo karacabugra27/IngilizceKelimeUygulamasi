@@ -50,7 +50,7 @@ class DatabaseManager(private val dbOpenHelper: DatabaseOpenHelper) {
         val db = dbOpenHelper.readableDatabase
         val tablolardanKelime = mutableListOf<Kelime>()
 
-        val sql = "SELECT name FROM sqlite_master WHERE type='table'"
+        val sql = "SELECT name FROM sqlite_master WHERE type='table' order by random()"
         val cursor = db.rawQuery(sql, null)
 
         while (cursor.moveToNext()) {

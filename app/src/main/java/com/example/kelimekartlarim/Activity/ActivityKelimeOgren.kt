@@ -1,11 +1,9 @@
 package com.example.kelimekartlarim.Activity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.kelimekartlarim.CardStackAdapter.CardAdapter

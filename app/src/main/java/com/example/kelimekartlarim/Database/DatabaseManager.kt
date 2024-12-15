@@ -27,22 +27,45 @@ class DatabaseManager(private val dbOpenHelper: DatabaseOpenHelper) {
         return kelimeListesi
     }
 
-    fun kelimeGetir(tableName: String, Id: Int): Kelime? {
+    fun kelimeGetir(tableName: String): List<Kelime> {
         val db = dbOpenHelper.readableDatabase
-        val sql = "select * from $tableName where Id = ?"
-        val cursor = db.rawQuery(sql, arrayOf(Id.toString()))
+        val sql = "SELECT * FROM $tableName"
+        val cursor = db.rawQuery(sql, null)
 
-        var kelime: Kelime? = null
-        if (cursor.moveToFirst() != null) {
-            kelime = Kelime()
+        val kelimeler = mutableListOf<Kelime>()
+
+        while (cursor.moveToNext()) {
+            val kelime = Kelime()
             kelime.Id = cursor.getInt(cursor.getColumnIndexOrThrow("Id"))
             kelime.AdTurkce = cursor.getString(cursor.getColumnIndexOrThrow("AdTurkce"))
             kelime.AdEng = cursor.getString(cursor.getColumnIndexOrThrow("AdEng"))
+            kelimeler.add(kelime)
         }
         cursor.close()
         db.close()
-        return kelime
+        return kelimeler
     }
+
+    fun tumTablolardanKelimeGetir(): List<Kelime> {
+        val db = dbOpenHelper.readableDatabase
+        val tablolardanKelime = mutableListOf<Kelime>()
+
+        val sql = "SELECT name FROM sqlite_master WHERE type='table'"
+        val cursor = db.rawQuery(sql, null)
+
+        while (cursor.moveToNext()) {
+            val tableName = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+            if (tableName == "sqlite_sequence" || tableName == "android_metadata") {
+                continue
+            }
+            val kelimeler = kelimeGetir(tableName)
+            tablolardanKelime.addAll(kelimeler)
+        }
+        cursor.close()
+        db.close()
+        return tablolardanKelime
+    }
+
 
     fun rastgeleKelimeAl(tableName: String): Kelime {
         val db = dbOpenHelper.readableDatabase

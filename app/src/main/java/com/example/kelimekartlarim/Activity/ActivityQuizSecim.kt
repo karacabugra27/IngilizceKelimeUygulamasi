@@ -15,7 +15,7 @@ import com.example.kelimekartlarim.databinding.ActivityQuizSecimBinding
 
 class ActivityQuizSecim : AppCompatActivity() {
     lateinit var binding: ActivityQuizSecimBinding
-    var tableNames = arrayListOf("Hayvanlar", "Kıyafetler", "Fiiller", "İsimler")
+    var tableNames = arrayListOf("Bildiğim Kelimeler", "Bilmediğim Kelimeler", "Hayvanlar", "Kıyafetler", "Fiiller", "İsimler")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class ActivityQuizSecim : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

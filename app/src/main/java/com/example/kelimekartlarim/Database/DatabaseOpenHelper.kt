@@ -14,7 +14,7 @@ class DatabaseOpenHelper private constructor(context: Context?) : SQLiteOpenHelp
 
     companion object {
         private const val name = "kelimekartlarim.db"
-        private const val version = 2
+        private const val version = 3
 
 
         @Volatile

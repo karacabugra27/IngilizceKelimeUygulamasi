@@ -19,15 +19,17 @@ import com.yuyakaido.android.cardstackview.StackFrom
 import com.yuyakaido.android.cardstackview.SwipeableMethod
 
 class ActivityKelimeOgren : AppCompatActivity(), CardStackListener {
+    private val db: DatabaseManager by lazy {
+        DatabaseManager(DatabaseOpenHelper.getInstance(this))
+    }
     lateinit var bindingKelimeOgren: ActivityKelimeOgrenBinding
     lateinit var bindingKart: KartLayoutBinding
     private val cardStackView by lazy { bindingKelimeOgren.cardStackView }
     private val layoutManager by lazy { CardStackLayoutManager(this, this) }
     private val cardStackAdapter by lazy { CardAdapter(kelimeleriGetir()) }
     private var kelimeler: List<Kelime> = kelimeleriGetir()
-    private val rightSwipedWords = mutableListOf<Kelime>()
-    private val leftSwipedWords = mutableListOf<Kelime>()
     private var currentIndex = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +39,10 @@ class ActivityKelimeOgren : AppCompatActivity(), CardStackListener {
 
         initialize()
 
-
     }
 
     private fun kelimeleriGetir(): List<Kelime> {
-        val db = DatabaseManager(DatabaseOpenHelper.getInstance(this))
-        return db.tumTablolardanKelimeGetir()
+        return db.kelimeGetir("TableGenel")
     }
 
     private fun initialize() {
@@ -75,9 +75,10 @@ class ActivityKelimeOgren : AppCompatActivity(), CardStackListener {
     override fun onCardSwiped(direction: Direction?) {
         val currentKelime = kelimeler[currentIndex]
         if (direction == Direction.Right) {
-            rightSwipedWords.add(currentKelime)
+            db.kelimeEkleBildiklerim(currentKelime.AdEng!!, currentKelime.AdTurkce!!)
+            db.kelimeSil(currentKelime.Id!!)
         } else if (direction == Direction.Left) {
-            leftSwipedWords.add(currentKelime)
+            db.kelimeEkleBilmediklerim(currentKelime.AdEng!!, currentKelime.AdTurkce!!)
         }
         currentIndex++
     }

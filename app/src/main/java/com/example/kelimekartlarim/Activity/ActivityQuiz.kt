@@ -1,5 +1,6 @@
 package com.example.kelimekartlarim.Activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -24,7 +25,7 @@ import kotlin.math.roundToInt
 
 class ActivityQuiz : AppCompatActivity() {
 
-    lateinit var binding: ActivityQuizBinding
+    private lateinit var binding: ActivityQuizBinding
 
     //database işlemleri
     private lateinit var dbManager: DatabaseManager
@@ -105,6 +106,14 @@ class ActivityQuiz : AppCompatActivity() {
         //score dialog kod blok bitiş
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (scoreDialog.isShowing) {
+            scoreDialog.dismiss()
+        }
+    }
+
+
     private fun quizBaslatma() {
         kelimeSetiniYukle()
         siradakiSoruyaGecis()
@@ -114,11 +123,13 @@ class ActivityQuiz : AppCompatActivity() {
     private fun zorlukSeviyeVePuanEkleme() {
         val tableName = intent.getStringExtra("tableName")
         val zorlukSeviyesi = when (tableName) {
-            "Hayvanlar"  -> StrategySeviye1()
-            "Fiiller"    -> StrategySeviye2()
-            "Kıyafetler" -> StrategySeviye2()
-            "İsimler"    -> StrategySeviye3()
-            else         -> StrategySeviye1()
+            "Hayvanlar"            -> StrategySeviye1()
+            "Fiiller"              -> StrategySeviye2()
+            "Kıyafetler"           -> StrategySeviye2()
+            "İsimler"              -> StrategySeviye3()
+            "Bildiğim Kelimeler"   -> StrategySeviye1()
+            "Bilmediğim Kelimeler" -> StrategySeviye3()
+            else                   -> StrategySeviye1()
         }
         val strategyManager = StrategyManager(zorlukSeviyesi)
         val puan = strategyManager.puanHesaplama(dogruSayisi)
@@ -130,6 +141,7 @@ class ActivityQuiz : AppCompatActivity() {
         dbManager = DatabaseManager(DatabaseOpenHelper.getInstance(this))
         kelimeSeti = SetFactory(dbManager).createKelimeSeti(tableName!!)
         tumKelimeler.addAll(kelimeSeti.kelimeler())
+
     }
 
     private fun siradakiSoruyaGecis() {
@@ -157,13 +169,14 @@ class ActivityQuiz : AppCompatActivity() {
     private fun seceneklerOlustur() {
         secenekler.clear()
         secenekler.add(dogruKelime)
-        val kullanılabilecekKelimeler = tumKelimeler.filter { it != dogruKelime }
-        val rastgeleKelimeler = kullanılabilecekKelimeler.shuffled().take(3)
+        val kullanilabilecekKelimeler = tumKelimeler.filter { it != dogruKelime }
+        val rastgeleKelimeler = kullanilabilecekKelimeler.shuffled().take(3)
         secenekler.addAll(rastgeleKelimeler)
         secenekler.shuffle()
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUI() {
         binding.soruSayisiText.text = "Soru $soruNo/10"
         binding.soruText.text = dogruKelime.AdEng
@@ -197,12 +210,13 @@ class ActivityQuiz : AppCompatActivity() {
         siradakiSoruyaGecis()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showScoreDialog() {
         val dogru = scoreDialog.findViewById<TextView>(R.id.skorDogru)
         val yanlis = scoreDialog.findViewById<TextView>(R.id.skorYanlis)
 
-        dogru.text = dogruSayisi.toString()
-        yanlis.text = yanlisSayisi.toString()
+        dogru.text = this.dogruSayisi.toString()
+        yanlis.text = this.yanlisSayisi.toString()
 
         scoreDialog.show()
     }

@@ -5,16 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ashgray"
+    android:background="@color/white"
     tools:context=".Activity.ActivityQuizSecim">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/kategoriSecinText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Bir kategori seçin"
         android:textSize="24sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

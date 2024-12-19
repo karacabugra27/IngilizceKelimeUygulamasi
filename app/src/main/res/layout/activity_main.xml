@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ashgray"
+    android:background="@color/white"
     tools:context=".Activity.MainActivity" >
 
     <ImageView
         android:id="@+id/skorLogo"
-        android:layout_width="72dp"
-        android:layout_height="44dp"
+        android:layout_width="108dp"
+        android:layout_height="66dp"
         android:layout_marginTop="128dp"
         android:src="@drawable/baseline_emoji_events_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/tvQuiz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/skorLogo" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/tvKelimeOgren"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="@+id/tvQuiz"
         app:layout_constraintTop_toBottomOf="@+id/tvQuiz" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/skor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

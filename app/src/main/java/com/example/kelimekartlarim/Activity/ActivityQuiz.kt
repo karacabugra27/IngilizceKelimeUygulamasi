@@ -102,7 +102,6 @@ class ActivityQuiz : AppCompatActivity() {
             startActivity(intent)
             scoreDialog.dismiss()
         }
-
         //score dialog kod blok bitiş
     }
 
@@ -173,7 +172,6 @@ class ActivityQuiz : AppCompatActivity() {
         val rastgeleKelimeler = kullanilabilecekKelimeler.shuffled().take(3)
         secenekler.addAll(rastgeleKelimeler)
         secenekler.shuffle()
-
     }
 
     @SuppressLint("SetTextI18n")

@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_centerInParent="true"
-        android:background="@color/lemon"
+        android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="3">
 
@@ -50,7 +50,7 @@
                         android:indeterminateOnly="false"
                         android:progressDrawable="@drawable/circular_progress_bar" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/timeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -60,16 +60,18 @@
                         android:layout_alignBottom="@id/circularProgressBar"
                         android:gravity="center"
                         android:text="20"
+                        android:textColor="@color/bittersweat"
                         android:textSize="36sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/soruSayisiText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/circularProgressBar"
                         android:layout_centerHorizontal="true"
                         android:layout_marginVertical="5dp"
+                        android:textColor="@color/bittersweat"
                         android:text="Soru 1/10"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -95,12 +97,13 @@
                 app:strokeColor="@color/bittersweat"
                 app:strokeWidth="3dp">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/soruText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:text="Soru"
+                    android:textColor="@color/bittersweat"
                     android:textAlignment="center"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -137,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/firstOptionButton"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -146,7 +149,7 @@
                             android:layout_weight="1"
                             android:text="Seçenek 1" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/secondOptionButton"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -162,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/thirdOptionButton"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"
@@ -171,7 +174,7 @@
                             android:layout_weight="1"
                             android:text="Seçenek 3" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/fourthOptionButton"
                             android:layout_width="match_parent"
                             android:layout_height="?actionBarSize"

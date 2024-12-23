@@ -122,13 +122,13 @@ class ActivityQuiz : AppCompatActivity() {
     private fun zorlukSeviyeVePuanEkleme() {
         val tableName = intent.getStringExtra("tableName")
         val zorlukSeviyesi = when (tableName) {
-            "Hayvanlar"            -> StrategySeviye1()
-            "Fiiller"              -> StrategySeviye2()
-            "Kıyafetler"           -> StrategySeviye2()
-            "İsimler"              -> StrategySeviye3()
-            "Bildiğim Kelimeler"   -> StrategySeviye1()
+            "Hayvanlar" -> StrategySeviye1()
+            "Fiiller" -> StrategySeviye2()
+            "Kıyafetler" -> StrategySeviye2()
+            "İsimler" -> StrategySeviye3()
+            "Bildiğim Kelimeler" -> StrategySeviye1()
             "Bilmediğim Kelimeler" -> StrategySeviye3()
-            else                   -> StrategySeviye1()
+            else -> StrategySeviye1()
         }
         val strategyManager = StrategyManager(zorlukSeviyesi)
         val puan = strategyManager.puanHesaplama(dogruSayisi)
@@ -137,6 +137,7 @@ class ActivityQuiz : AppCompatActivity() {
 
     private fun kelimeSetiniYukle() { //aktardığım tabloyu alma ve ilgili kelime setini getirme işlemi
         val tableName = intent.getStringExtra("tableName")
+        binding.toolbar.toolbarTitle.text = tableName
         dbManager = DatabaseManager(DatabaseOpenHelper.getInstance(this))
         kelimeSeti = SetFactory(dbManager).createKelimeSeti(tableName!!)
         tumKelimeler.addAll(kelimeSeti.kelimeler())

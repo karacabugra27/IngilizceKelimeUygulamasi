@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kelimekartlarim.R
-
+//her bir liste ögesinin viewlarını temsil eder.
 class ViewHolder(itemView: View, itemClick: (position: Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
     var kategoriAd: TextView
 

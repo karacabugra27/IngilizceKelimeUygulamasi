@@ -2,8 +2,8 @@ package com.example.kelimekartlarim.StrategyPuanlama
 
 import android.content.Context
 import android.content.SharedPreferences
-
-object PuanManager { //singleton
+//uygulamanın her yerinden erişim sağlar ve tek bir puan saklarız.
+object PuanManager { //bir örnek ve global erişim.
     private const val PREF_NAME = "PuanPreferences"
     private const val KEY_PUAN = "puan_key"
     private var sharedPreferences: SharedPreferences? = null

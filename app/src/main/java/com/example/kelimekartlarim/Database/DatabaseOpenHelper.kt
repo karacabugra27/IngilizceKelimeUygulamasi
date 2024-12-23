@@ -12,7 +12,7 @@ class DatabaseOpenHelper private constructor(context: Context?) : SQLiteOpenHelp
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
 
-    companion object {
+    companion object {//statik olmasını sağlarız.
         private const val name = "kelimekartlarim.db"
         private const val version = 3
 

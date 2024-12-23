@@ -2,7 +2,7 @@ package com.example.kelimekartlarim.FactoryKelimeSetleri
 
 import com.example.kelimekartlarim.Database.DatabaseManager
 
-class SetFactory(private val dbManager: DatabaseManager) {
+class SetFactory(private val dbManager: DatabaseManager) {//alt sınıflarına göre hangi kelimesetlerini oluşturacağımızı belirleriz.
     fun createKelimeSeti(tableName : String) : KelimeSeti {
         return when(tableName) {
             "Hayvanlar" -> SetHayvanlar(dbManager)

@@ -152,7 +152,7 @@ class ActivityQuiz : AppCompatActivity() {
             updateUI()
         } else {
             customCountdownTimer.pauseTimer()
-            zorlukSeviyeVePuanEkleme()
+            zorlukSeviyeVePuanEkleme()//strategy pattern
             showScoreDialog()
         }
     }

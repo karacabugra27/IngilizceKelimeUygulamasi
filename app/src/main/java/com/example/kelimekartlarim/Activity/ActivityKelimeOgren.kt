@@ -26,7 +26,7 @@ class ActivityKelimeOgren : AppCompatActivity(), CardStackListener {
     lateinit var bindingKart: KartLayoutBinding
     private val cardStackView by lazy { bindingKelimeOgren.cardStackView }
     private val layoutManager by lazy { CardStackLayoutManager(this, this) }
-    private val cardStackAdapter by lazy { CardAdapter(kelimeleriGetir()) }
+    private val cardStackAdapter by lazy { CardAdapter(kelimeleriGetir()) } //adapter pattern
     private var kelimeler: List<Kelime> = kelimeleriGetir()
     private var currentIndex = 0
 

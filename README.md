@@ -14,3 +14,4 @@ Kelime Kartlarım Uygulaması, kullanıcıların İngilizce kelimeleri eğlencel
 - Design Patterns: Uygulama için kullanılan tasarım kalıpları.
 
 ![umlkelimekartlarim](https://github.com/user-attachments/assets/d278bf2f-d249-4561-93e3-123d5f5a0b73)
+[uml.pdf](https://github.com/user-attachments/files/18317106/uml.pdf)
